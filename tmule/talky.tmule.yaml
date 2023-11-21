@@ -20,7 +20,7 @@ windows:
 - name: limo_slam
   panes:
   - ros2 launch limo_navigation cartographer.launch.py
-  - echo "ros2 run nav2_map_server map_saver_cli -f /workspaces/limo_ros2/map"
+  - ros2 run nav2_map_server map_saver_cli -f /workspaces/limo_ros2/src/custom_packages/my_limo/my_map
 
 #- name: limo_nav
 #  panes:
