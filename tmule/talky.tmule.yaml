@@ -5,6 +5,17 @@ init_cmd:
   cd @TMULE_CONFIG_DIR@ || true
   set -o pipefail
 
+  export MY_LIMO='/workspaces/limo_ros2/src/custom_packages/my_limo'
+  
+  export ALSA_INPUT="hw:3,0"
+  export ALSA_OUTPUT="hw:2,0"
+  export DOCKER_ESPEAK=True
+  
+  export JOY_DEV='dev/input/js0'
+  export JOY_CONFIG=$MY_LIMO/config/logitech.yaml
+  
+  export MAP_FILE=$MY_LIMO/mapping/mapbestbest1.yaml
+
 windows:
 #- name: speech
 #  panes:
@@ -15,6 +26,10 @@ windows:
 - name: limo_bringup
   panes:
   - ros2 launch limo_bringup limo_start.launch.py
+
+- name: limo_control
+  panes:
+  - ros2 launch teleop_twist_joy teleop-launch.py joy_dev:=$JOY_DEVICE config_filepath:=$JOY_CONFIG
   - ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 #- name: limo_mapping
@@ -24,7 +39,7 @@ windows:
 
 - name: limo_loc
   panes:
-  - ros2 launch limo_navigation limo_localization.launch.py map:=/workspaces/limo_ros2/src/custom_packages/my_limo/mapping/mapbestbest1.yaml
+  - ros2 launch limo_navigation limo_localization.launch.py map:=$MAP_FILE
 
 - name: limo_nav
   panes:
