@@ -22,7 +22,7 @@ setup(
     tests_require=['pytest', 'launch-pytest'],
     entry_points={
         'console_scripts': [
-#            'bob.py = my_limo.scripts.bob:main',
+            'mqtt.py = my_limo.scripts.mqtt:main',
         ],
     },
 

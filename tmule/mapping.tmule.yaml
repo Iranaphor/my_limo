@@ -7,22 +7,12 @@ init_cmd:
 
   export MY_LIMO='/workspaces/limo_ros2/src/custom_packages/my_limo'
   
-  export ALSA_INPUT="hw:3,0"
-  export ALSA_OUTPUT="hw:2,0"
-  export DOCKER_ESPEAK=True
-  
   export JOY_DEV='/dev/input/js0'
   export JOY_CONFIG=$MY_LIMO/config/logitech.yaml
   
   export MAP_FILE=$MY_LIMO/mapping/mapbestbest1.yaml
 
 windows:
-
-- name: speech
-  panes:
-  - ros2 run verbaliser audio_collector.py
-  - ros2 run verbaliser openai_chat.py
-  - ros2 run verbaliser speaker.py
 
 - name: limo_bringup
   panes:
@@ -32,3 +22,8 @@ windows:
   panes:
   - ros2 launch teleop_twist_joy teleop-launch.py joy_dev:=$JOY_DEV config_filepath:=$JOY_CONFIG
   - ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+- name: limo_mapping
+  panes:
+  - ros2 launch limo_navigation cartographer.launch.py
+  - ros2 run nav2_map_server map_saver_cli -f /workspaces/limo_ros2/src/custom_packages/my_limo/my_map
