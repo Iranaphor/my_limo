@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+print('hi')
 import os
 import json, msgpack, yaml
 
@@ -8,18 +8,18 @@ import paho.mqtt.client as mqtt
 import rclpy
 from rclpy.node import Node
 
-from rospy_message_converter import message_converter
-
 from limo_msgs.msg import LimoStatus
 
 class MqttPsuedoBridge(Node):
 
     def __init__(self):
+        super().__init__('mqtt_psuedo_bridge')
+
         # Define all the details for the MQTT broker
         self.mqtt_ip = os.getenv('MQTT_BROKER_IP', 'mqtt.lcas.group')
         self.mqtt_port = int(os.getenv('MQTT_BROKER_PORT', 1883))
         self.mqtt_encoding = os.getenv('MQTT_ENCODING', 'json')
-        mqtt_client = None
+        self.mqtt_client = None
 
         # Specify the loading and dumping functions
         self.dumps = msgpack.dumps if self.mqtt_encoding == 'msgpack' else json.dumps
@@ -54,11 +54,15 @@ class MqttPsuedoBridge(Node):
         self.mqtt_client.publish('agilex/limo/status/battery_voltage', msg.battery_voltage)
         
 
+   
+def main(args=None):
+    rclpy.init(args=args)
 
+    MPB = MqttPsuedoBridge()
+    rclpy.spin(MPB)
 
-
+    MPB.destroy_node()
+    rclpy.shutdown()
 
 if __name__ == '__main__':
-    super('limo_status_logger')
-    mpb = MqttPsuedoBridge()
-    rospy.spin()
+    main()

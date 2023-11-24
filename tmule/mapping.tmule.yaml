@@ -5,6 +5,7 @@ init_cmd:
   cd @TMULE_CONFIG_DIR@ || true
   set -o pipefail
 
+  export ROBOT_NAME=$(hostname)
   export MY_LIMO='/workspaces/limo_ros2/src/custom_packages/my_limo'
   
   export JOY_DEV='/dev/input/js0'
