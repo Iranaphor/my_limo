@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-print('hi')
-import os
+import os, socket
 import json, msgpack, yaml
 
 import paho.mqtt.client as mqtt
@@ -9,6 +8,10 @@ import rclpy
 from rclpy.node import Node
 
 from limo_msgs.msg import LimoStatus
+
+MOTION = {0: 'skid_steer', 1: 'ackerman'}
+VEHICLE = {0: 'active', 1: 'estop'}
+CONTROL = {0: 'ROS', 1: 'Application'}
 
 class MqttPsuedoBridge(Node):
 
@@ -26,7 +29,8 @@ class MqttPsuedoBridge(Node):
         self.loads = msgpack.loads if self.mqtt_encoding == 'msgpack' else json.loads
 
         # Define source information
-        self.limo_name = os.getenv('ROBOT_NAME', '')
+
+        self.limo_name = os.getenv('ROBOT_NAME', socket.gethostname())
 
         # Initiate connections to ROS and MQTT
         self.connect_to_mqtt()
@@ -34,7 +38,7 @@ class MqttPsuedoBridge(Node):
 
     def connect_to_mqtt(self):
         # MQTT management functions
-        self.mqtt_client = mqtt.Client(self.source + "_" + self.robot_name)
+        self.mqtt_client = mqtt.Client(self.limo_name+'_status_logger')
         self.mqtt_client.on_connect = self.on_connect
         self.mqtt_client.on_message = self.on_message
         self.mqtt_client.connect(self.mqtt_ip, self.mqtt_port)
@@ -48,13 +52,24 @@ class MqttPsuedoBridge(Node):
         print(" MQTT        | Message received ["+msg.topic+"]")
 
     def connect_to_ros(self):
-        self.sub = rclpy.create_subscription('/limo_status', LimoStatus, self.limo_status_cb)
+        self.sub = self.create_subscription(LimoStatus, '/limo_status', self.limo_status_cb, 10)
 
     def limo_status_cb(self, msg):
-        self.mqtt_client.publish('agilex/limo/status/battery_voltage', msg.battery_voltage)
-        
+        ns = 'agilex/%s/status/'%self.limo_name
+        self.mqtt_client.publish(ns+'battery_voltage', msg.battery_voltage, latch=True)
+        self.mqtt_client.publish(ns+'motion_mode', MOTION[msg.motion_mode])
+        self.mqtt_client.publish(ns+'vehicle_state', VEHICLE[msg.vehicle_state])
+        self.mqtt_client.publish(ns+'control_mode', CONTROL[msg.control_mode])
+        self.mqtt_client.publish(ns+'error_code', msg.error_code)
 
-   
+"""
+battery voltage  9.9: 1f
+battery voltage 10.1: 2f
+battery voltage 10.2: 2f
+battery voltage 10.3: 2f
+battery voltage 11.9: charging
+"""
+
 def main(args=None):
     rclpy.init(args=args)
 

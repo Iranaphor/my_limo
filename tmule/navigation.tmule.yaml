@@ -8,16 +8,21 @@ init_cmd:
   export ROBOT_NAME=$(hostname)
   export MY_LIMO='/workspaces/limo_ros2/src/custom_packages/my_limo'
   
+  export MQTT_BROKER_IP='mqtt.lcas.group'
+  export MQTT_BROKER_PORT=1883
+  export MQTT_ENCODING='json'
+  
   export JOY_DEV='/dev/input/js0'
   export JOY_CONFIG=$MY_LIMO/config/logitech.yaml
   
-  export MAP_FILE=$MY_LIMO/mapping/mapbestbest1.yaml
+  export MAP_FILE=$MY_LIMO/mapping/mapbestbest2.yaml
 
 windows:
 
 - name: limo_bringup
   panes:
   - ros2 launch limo_bringup limo_start.launch.py
+  - ros2 run my_limo mqtt.py
 
 - name: limo_control
   panes:
