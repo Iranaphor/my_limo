@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, socket
+import os, socket, datetime
 import json, msgpack, yaml
 
 import paho.mqtt.client as mqtt
@@ -66,6 +66,9 @@ class MqttPsuedoBridge(Node):
         self.mqtt_client.publish(ns+'vehicle_state', VEHICLE[msg.vehicle_state])
         self.mqtt_client.publish(ns+'control_mode', CONTROL[msg.control_mode])
         self.mqtt_client.publish(ns+'error_code', msg.error_code, retain=True)
+
+        t = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+        self.mqtt_client.publish(ns+'last_online', str(t), retain=True)
 
 """
 (can drop to 8.8 temporarily if low and driven forward)
