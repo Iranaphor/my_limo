@@ -5,21 +5,8 @@ init_cmd:
   cd @TMULE_CONFIG_DIR@ || true
   set -o pipefail
 
-  export ROBOT_NAME=$(hostname)
   export MY_LIMO='/workspaces/limo_ros2/src/custom_packages/my_limo'
-  
-  export MQTT_BROKER_IP='mqtt.lcas.group'
-  export MQTT_BROKER_PORT=1883
-  export MQTT_ENCODING='json'
-  
-  export ALSA_INPUT="hw:3,0"
-  export ALSA_OUTPUT="hw:2,0"
-  export DOCKER_ESPEAK=True
-  
-  export JOY_DEV='/dev/input/js0'
-  export JOY_CONFIG=$MY_LIMO/config/logitech.yaml
-  
-  export MAP_FILE=$MY_LIMO/mapping/mapbestbest1.yaml
+  source $MY_LIMO/tmule/init_cmd.sh
 
 windows:
 
@@ -33,8 +20,3 @@ windows:
   panes:
   - ros2 launch limo_bringup limo_start.launch.py
   - ros2 run my_limo mqtt.py
-
-- name: limo_control
-  panes:
-  - ros2 launch teleop_twist_joy teleop-launch.py joy_dev:=$JOY_DEV config_filepath:=$JOY_CONFIG
-  - ros2 run teleop_twist_keyboard teleop_twist_keyboard

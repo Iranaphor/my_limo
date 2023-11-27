@@ -12,6 +12,7 @@ from limo_msgs.msg import LimoStatus
 MOTION = {0: 'skid_steer', 1: 'ackerman'}
 VEHICLE = {0: 'active', 1: 'estop'}
 CONTROL = {0: 'ROS', 1: 'Application'}
+VOLTAGE = {0: 'ERROR', 9: 'Critical (0.5 r)', 9.2: 'Very Low (0.5 y)', 9.5: 'Low (0.5 g)', 10.0: 'Medium Low (1.5 g)',  11.0: 'Medium (2.5)',  12.0: 'High (3.5)',  12.6: 'Full Charge'}
 
 class MqttPsuedoBridge(Node):
 
@@ -56,13 +57,24 @@ class MqttPsuedoBridge(Node):
 
     def limo_status_cb(self, msg):
         ns = 'agilex/%s/status/'%self.limo_name
-        self.mqtt_client.publish(ns+'battery_voltage', msg.battery_voltage, latch=True)
+        self.mqtt_client.publish(ns+'battery_voltage', msg.battery_voltage, retain=True)
+        
+        v = [val for volt, val in VOLTAGE.items() if msg.battery_voltage >= volt][-1]
+        self.mqtt_client.publish(ns+'battery_inidcator', v, retain=True)
+
         self.mqtt_client.publish(ns+'motion_mode', MOTION[msg.motion_mode])
         self.mqtt_client.publish(ns+'vehicle_state', VEHICLE[msg.vehicle_state])
         self.mqtt_client.publish(ns+'control_mode', CONTROL[msg.control_mode])
-        self.mqtt_client.publish(ns+'error_code', msg.error_code)
+        self.mqtt_client.publish(ns+'error_code', msg.error_code, retain=True)
 
 """
+(can drop to 8.8 temporarily if low and driven forward)
+battery voltage  9.1: BEEP BEEP BEEP BEEP BEEP +r
+battery voltage  9.2: BEEP BEEP BEEP BEEP BEEP +r
+battery voltage  9.2: BEEP +y
+battery voltage  9.3: BEEP +y
+battery voltage  9.5: BEEP +y
+battery voltage  9.7: 1f
 battery voltage  9.9: 1f
 battery voltage 10.1: 2f
 battery voltage 10.2: 2f

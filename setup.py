@@ -23,6 +23,7 @@ setup(
     entry_points={
         'console_scripts': [
             'mqtt.py = my_limo.scripts.mqtt:main',
+            'mapper.py = my_limo.scripts.mapper:main',
         ],
     },
 
