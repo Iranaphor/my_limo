@@ -1,6 +1,6 @@
 ---
 session: my_limo
-init_cmd:
+init_cmd: |
   #exec /bin/bash
   cd @TMULE_CONFIG_DIR@ || true
   set -o pipefail
@@ -9,6 +9,10 @@ init_cmd:
   source $MY_LIMO/tmule/init_cmd.sh
 
 windows:
+
+- name: speech
+  panes:
+  - ros2 run verbaliser speaker.py
 
 - name: limo_bringup
   panes:
@@ -26,4 +30,4 @@ windows:
 
 - name: tmapping
   panes:
-  - ros2 run my_limo mapper.py 
+  - ros2 run my_limo node_mapper.py

@@ -4,6 +4,7 @@ import os
 import rclpy
 from rclpy.node import Node
 
+from std_msgs.msg import String
 from sensor_msgs.msg import Joy
 from geometry_msgs.msg import PointStamped, PoseWithCovarianceStamped, Point
 
@@ -81,21 +82,22 @@ verts:
 #tmap += vert_sample
 
 
-class Mapper(Node):
+class NodeMapper(Node):
 
     def __init__(self):
-        super().__init__('mapper')
+        super().__init__('node_mapper')
 
-        self.location = os.getenv('LOCATION_NAME', 'unknown')
-        self.tmappath = os.getenv('TMAP_FILE')
+        self.location = os.getenv('FIELD_NAME', 'unknown')
+        self.tmappath = os.getenv('TMAP_FILE_WRITE')
         self.tmap = vert_sample
         self.tmap += opening.format(**{'gen_time':0, 'location':self.location})
         self.total_nodes = 0
 
-        self.nodepath = os.getenv('MY_LIMO') + '/tmapping/node_list.yaml'
-        with open(self.nodepath, 'a') as f:
-            f.write('NEW INSTANCE, CLEAR FROM HERE\n')
+        self.nodepath = os.getenv('ENVIRONMENT_TEMPLATE') + '/config/topological/node_list.yaml'
+        with open(self.nodepath, 'w') as f:
+            f.write('')
 
+        self.say = self.create_publisher(String, '/verbaliser/speaker', 10)
 
         self.cp_sub = self.create_subscription(PointStamped, '/clicked_point', self.clicked_point_cb, 10)
 
@@ -130,8 +132,10 @@ class Mapper(Node):
 
         # Construct node in tmap and save to file
         self.total_nodes += 1
-        self.tmap += node.format(**{'name':'WayPoint%s'%self.total_nodes, 'location':self.location, 'x':x, 'y':y, 'vert':'*vert0', 'restrictions':'True'})
+        self.tmap += node.format(**{'name':'WayPoint%s'%self.total_nodes, 'location':self.location, 'x':x, 'y':y, 'vert':'vert0', 'restrictions':'True'})
         
+        self.say.publish(String(data=f'WayPoint{self.total_nodes} at: x {round(x,1)}, y {round(y,1)}'))
+
         with open(self.tmappath, 'w') as f:
             f.write(self.tmap)
 
@@ -139,10 +143,10 @@ class Mapper(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    M = Mapper()
-    rclpy.spin(M)
+    NM = NodeMapper()
+    rclpy.spin(NM)
 
-    M.destroy_node()
+    NM.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':

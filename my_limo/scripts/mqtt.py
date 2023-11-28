@@ -9,8 +9,8 @@ from rclpy.node import Node
 
 from limo_msgs.msg import LimoStatus
 
-MOTION = {0: 'skid_steer', 1: 'ackerman'}
-VEHICLE = {0: 'active', 1: 'estop'}
+MOTION = {0: 'skid-steering', 1: 'ackermann-steering', 2:'omni-directional-steering'}
+VEHICLE = {0: 'active', 1: 'estop', 2: 'error?'}
 CONTROL = {0: 'ROS', 1: 'Application'}
 VOLTAGE = {0: 'ERROR', 9: 'Critical (0.5 r)', 9.2: 'Very Low (0.5 y)', 9.5: 'Low (0.5 g)', 10.0: 'Medium Low (1.5 g)',  11.0: 'Medium (2.5)',  12.0: 'High (3.5)',  12.6: 'Full Charge'}
 

@@ -1,6 +1,6 @@
 ---
 session: my_limo
-init_cmd:
+init_cmd: |
   #exec /bin/bash
   cd @TMULE_CONFIG_DIR@ || true
   set -o pipefail

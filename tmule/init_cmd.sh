@@ -13,5 +13,6 @@ export JOY_CONFIG=$MY_LIMO/config/logitech.yaml
 
 export ENVIRONMENT_TEMPLATE='/workspaces/limo_ros2/src/custom_packages/environment_template'
 source $ENVIRONMENT_TEMPLATE/config/environment.sh
+export TMAP_FILE_WRITE=$ENVIRONMENT_TEMPLATE/config/topological/network.tmap2.yaml
 
-source $MY_LIMO/secrets.sh
+source $MY_LIMO/bash/secrets.sh
