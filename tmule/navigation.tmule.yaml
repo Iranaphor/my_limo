@@ -36,10 +36,6 @@ windows:
   panes:
   - ros2 run topological_navigation localisation2.py
 
-- name: tmapping_edges
+- name: tmap_nav
   panes:
-  - ros2 run my_limo edge_mapper.py
-
-#- name: tmap_nav
-#  panes:
-#  - 
+  - ros2 run topological_navigation navigation2.py
