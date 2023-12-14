@@ -11,7 +11,7 @@ from limo_msgs.msg import LimoStatus
 
 MOTION = {0: 'skid-steering', 1: 'ackermann-steering', 2:'omni-directional-steering'}
 VEHICLE = {0: 'active', 1: 'estop', 2: 'error?'}
-CONTROL = {0: 'ROS', 1: 'Application'}
+CONTROL = {0: 'ROS', 1: 'Application', 2: 'Application Failed to Disconnect'}
 VOLTAGE = {0: 'ERROR', 9: 'Critical (0.5 r)', 9.2: 'Very Low (0.5 y)', 9.5: 'Low (0.5 g)', 10.0: 'Medium Low (1.5 g)',  11.0: 'Medium (2.5)',  12.0: 'High (3.5)',  12.6: 'Full Charge'}
 
 class MqttPsuedoBridge(Node):
@@ -20,8 +20,8 @@ class MqttPsuedoBridge(Node):
         super().__init__('mqtt_psuedo_bridge')
 
         # Define all the details for the MQTT broker
-        self.mqtt_ip = os.getenv('MQTT_BROKER_IP', 'mqtt.lcas.group')
-        self.mqtt_port = int(os.getenv('MQTT_BROKER_PORT', 1883))
+        self.mqtt_ip = os.getenv('MQTT_BROKER_IP', '')
+        self.mqtt_port = int(os.getenv('MQTT_BROKER_PORT', 8883))
         self.mqtt_encoding = os.getenv('MQTT_ENCODING', 'json')
         self.mqtt_client = None
 
