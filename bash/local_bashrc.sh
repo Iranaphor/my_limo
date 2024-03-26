@@ -6,6 +6,12 @@ function tm () { tmule -c /workspaces/limo_ros2/src/custom_packages/my_limo/tmul
 function mu () { tmule -c /workspaces/limo_ros2/src/custom_packages/my_limo/tmule/$1.tmule.yaml $2 ; }
 function vr () { tmule -c /workspaces/limo_ros2/src/custom_packages/vrviz_ros/tmule/example.tmule.yaml $1 ; }
 
+echo "Included tmule file shorcuts:"
+echo "  - [vm] communication through elevenlabs and gpt"
+echo "  - [tm] dev space for chat + nav"
+echo "  - [mu] \$1=[mapping,navigation,talky,tmapping]"
+echo "  - [vr] for running with vrviz renderer"
+
 function topogoal () { ros2 action send_goal /topological_navigation topological_navigation_msgs/action/GotoNode "{target: $1}" ; }
 
 export OPENAI_PROMPT="You are a small robot which drives around office rooms to deliver mail, your name is LIMO."
