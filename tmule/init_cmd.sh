@@ -1,4 +1,4 @@
-export ROBOT_NAME=$(hostname)
+export ROBOT_NAME=$(hostname | sed 's|-|_|g')
 
 export MQTT_BROKER_IP=''
 export MQTT_BROKER_PORT=''
