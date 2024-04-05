@@ -39,7 +39,7 @@ class MqttPsuedoBridge(Node):
 
     def connect_to_mqtt(self):
         # MQTT management functions
-        self.mqtt_client = mqtt.Client(self.limo_name+'_status_logger')
+        self.mqtt_client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, self.limo_name+'_status_logger')
         self.mqtt_client.on_connect = self.on_connect
         self.mqtt_client.on_message = self.on_message
         self.mqtt_client.connect(self.mqtt_ip, self.mqtt_port)
