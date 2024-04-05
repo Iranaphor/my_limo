@@ -1,3 +1,5 @@
+source ~/.bashrc
+
 export ROBOT_NAME=$(hostname | sed 's|-|_|g')
 
 export MQTT_BROKER_IP=''

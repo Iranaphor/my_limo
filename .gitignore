@@ -51,3 +51,4 @@ qtcreator-*
 CATKIN_IGNORE
 
 **/secrets.sh
+**/robot_specific_config.sh

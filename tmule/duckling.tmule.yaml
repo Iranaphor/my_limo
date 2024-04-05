@@ -27,7 +27,6 @@ windows:
 
 - name: duckling
   panes:
-  - ros2 run staggered_duckling_platooning spawner.py
+  - if [ "${DUCK}" == "HEAD" ] ; ros2 run staggered_duckling_platooning spawner.py; fi
   - ros2 run staggered_duckling_platooning mother.py
-  - ros2 topic echo /amcl_pose | grep -B 1 -A 8 position
-  - ros2 topic echo /LM_0548/duckling/node_list
+  - if [ "${DUCK}" == "TAIL" ] ; then ros2 run staggered_duckling_platooning duckling.py; fi
