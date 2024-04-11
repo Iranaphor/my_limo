@@ -2,6 +2,7 @@
 #sed -i 's/\#force_color_prompt=yes/force_color_prompt=yes/g' ~/.bashrc
 
 # Add some shortcuts
+export RCUTILS_CONSOLE_OUTPUT_FORMAT="{severity}: {message}"
 function build () {
     cd /workspaces/limo_ros2/ ;
     colcon build --merge-install --symlink-install --packages-select $@ ;
