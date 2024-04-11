@@ -2,6 +2,11 @@
 #sed -i 's/\#force_color_prompt=yes/force_color_prompt=yes/g' ~/.bashrc
 
 # Add some shortcuts
+function build () {
+    cd /workspaces/limo_ros2/ ;
+    colcon build --merge-install --symlink-install --packages-select $@ ;
+    cd $OLDPWD ;
+}
 alias t='tmux'
 function gs () { git status . ; }
 function vm () { tmule -c /workspaces/limo_ros2/src/custom_packages/verbaliser/new_tmule/chat.tmule.yaml $1 ; }
