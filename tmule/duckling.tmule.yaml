@@ -25,16 +25,21 @@ windows:
   - ros2 launch limo_navigation limo_localization.launch.py map:=$MAP_FILE use_rviz:=false
   - ros2 launch limo_navigation limo_controller.launch.py use_rviz:=false
 
-- name: duckling_S
-  panes:
-  - if [ "${DUCK}" == "HEAD" ] ; then ros2 run staggered_duckling_platooning spawner.py; fi
 
-- name: duckling_M
+- name: duckling_general
   panes:
-  - if [ "${DUCK}" == "HEAD" ] ; then ros2 run staggered_duckling_platooning mqtt_mother; fi 
-  - if [ "${DUCK}" == "HEAD" ] ; then ros2 run staggered_duckling_platooning mother.py; fi
+  - ros2 launch staggered_duckling_platooning general.launch.py
 
-- name: duckling_D
-  panes:
-  - if [ "${DUCK}" == "TAIL" ] ; then ros2 run staggered_duckling_platooning mqtt_duckling; fi
-  - if [ "${DUCK}" == "TAIL" ] ; then ros2 run staggered_duckling_platooning duckling.py; fi
+#- name: duckling_S
+#  panes:
+#  - if [ "${DUCK}" == "HEAD" ] ; then ros2 run staggered_duckling_platooning spawner.py; fi
+#
+#- name: duckling_M
+#  panes:
+#  - if [ "${DUCK}" == "HEAD" ] ; then ros2 run staggered_duckling_platooning mqtt_mother; fi 
+#  - if [ "${DUCK}" == "HEAD" ] ; then ros2 run staggered_duckling_platooning mother.py; fi
+#
+#- name: duckling_D
+#  panes:
+#  - if [ "${DUCK}" == "TAIL" ] ; then ros2 run staggered_duckling_platooning mqtt_duckling; fi
+#  - if [ "${DUCK}" == "TAIL" ] ; then ros2 run staggered_duckling_platooning duckling.py; fi
