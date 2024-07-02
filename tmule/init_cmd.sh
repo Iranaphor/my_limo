@@ -25,4 +25,8 @@ export VRVIZ_MQTT_BROKER_PORT="8883"
 export VRVIZ_MQTT_CLIENT_NAME="vrviz_limo_server"
 export VRVIZ_MQTT_BROKER_NAMESPACE="vrviz"
 
+# Any configuration exports for this specific robot should be stored in the following:
+source $MY_LIMO/bash/robot_specific_config.sh
+
+# Any usernames, passwords, API keys, ip addresses or ports should be stored in secrets.sh
 source $MY_LIMO/bash/secrets.sh
