@@ -28,4 +28,4 @@ windows:
 
 - name: duckling_general
   panes:
-  - set_my_pose ; ros2 launch staggered_duckling_platooning general.launch.py
+  - ros2 launch staggered_duckling_platooning general.launch.py
