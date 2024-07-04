@@ -5,8 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Maps1/Topology1/Namespaces1
-        - /WayPoints1/Safe Nodes1
-        - /WayPoints1/Unsafe Nodes1
       Splitter Ratio: 0.5
     Tree Height: 431
   - Class: rviz_common/Selection
@@ -26,12 +24,12 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Visualization Manager:
   Class: ""
   Displays:
-    - Alpha: 0.5
-      Cell Size: 1
+    - Alpha: 0.10000000149011612
+      Cell Size: 0.5
       Class: rviz_default_plugins/Grid
       Color: 160; 160; 164
       Enabled: true
@@ -45,8 +43,8 @@ Visualization Manager:
         Y: 0
         Z: 0
       Plane: XY
-      Plane Cell Count: 10
-      Reference Frame: <Fixed Frame>
+      Plane Cell Count: 20
+      Reference Frame: map
       Value: true
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
@@ -130,7 +128,7 @@ Visualization Manager:
       Displays:
         - Alpha: 0.699999988079071
           Class: rviz_default_plugins/Map
-          Color Scheme: costmap
+          Color Scheme: map
           Draw Behind: true
           Enabled: true
           Name: Map
@@ -170,11 +168,11 @@ Visualization Manager:
             Value: /global_costmap/costmap_updates
           Use Timestamp: false
           Value: false
-        - Alpha: 0.699999988079071
+        - Alpha: 0.20000000298023224
           Class: rviz_default_plugins/Map
           Color Scheme: costmap
           Draw Behind: true
-          Enabled: false
+          Enabled: true
           Name: LocalMap
           Topic:
             Depth: 5
@@ -190,16 +188,12 @@ Visualization Manager:
             Reliability Policy: Reliable
             Value: /local_costmap/costmap_updates
           Use Timestamp: false
-          Value: false
+          Value: true
         - Class: rviz_default_plugins/MarkerArray
           Enabled: true
           Name: Topology
           Namespaces:
-            /edges: true
-            /legend: true
-            /names: true
-            /nodes: true
-            /zones: true
+            {}
           Topic:
             Depth: 5
             Durability Policy: Volatile
@@ -245,7 +239,7 @@ Visualization Manager:
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
-      Enabled: false
+      Enabled: true
       Name: Sensors
     - Class: rviz_common/Group
       Displays:
@@ -324,20 +318,20 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: false
-      Enabled: false
-      Keep: 100
+      Enabled: true
+      Keep: 25
       Name: Odometry
       Position Tolerance: 0.10000000149011612
       Shape:
         Alpha: 1
-        Axes Length: 1
-        Axes Radius: 0.10000000149011612
+        Axes Length: 0.10000000149011612
+        Axes Radius: 0.05000000074505806
         Color: 255; 25; 0
-        Head Length: 0.30000001192092896
+        Head Length: 0.10000000149011612
         Head Radius: 0.10000000149011612
-        Shaft Length: 1
+        Shaft Length: 0.10000000149011612
         Shaft Radius: 0.05000000074505806
-        Value: Arrow
+        Value: Axes
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -345,7 +339,7 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /odom
-      Value: false
+      Value: true
     - Class: rviz_common/Group
       Displays:
         - Alpha: 1
