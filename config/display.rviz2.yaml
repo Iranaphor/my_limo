@@ -5,13 +5,14 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Maps1/Topology1/Namespaces1
-        - /WayPoints1
+        - /Stag Markers1
       Splitter Ratio: 0.5
     Tree Height: 431
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
     Expanded:
+      - /2D Pose Estimate1
       - /2D Goal Pose1
       - /Publish Point1
     Name: Tool Properties
@@ -25,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -389,7 +390,7 @@ Visualization Manager:
           Enabled: true
           Name: Safety Radius
           Namespaces:
-            filter_radius: true
+            {}
           Topic:
             Depth: 5
             Durability Policy: Volatile
@@ -402,7 +403,7 @@ Visualization Manager:
           Enabled: true
           Name: Spawn Radius
           Namespaces:
-            spawn_radius: true
+            {}
           Topic:
             Depth: 5
             Durability Policy: Volatile
@@ -413,6 +414,106 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: WayPoints
+    - Class: rviz_common/Group
+      Displays:
+        - Alpha: 1
+          Arrow Length: 0.30000001192092896
+          Axes Length: 0.30000001192092896
+          Axes Radius: 0.009999999776482582
+          Class: rviz_default_plugins/PoseArray
+          Color: 255; 25; 0
+          Enabled: false
+          Head Length: 0.07000000029802322
+          Head Radius: 0.029999999329447746
+          Name: PoseArray
+          Shaft Length: 0.23000000417232513
+          Shaft Radius: 0.009999999776482582
+          Shape: Arrow (Flat)
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /stag/pose_array
+          Value: false
+        - Alpha: 1
+          Axes Length: 0.20000000298023224
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
+          Color: 255; 25; 0
+          Enabled: true
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
+          Name: Marker4
+          Shaft Length: 1
+          Shaft Radius: 0.05000000074505806
+          Shape: Axes
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /stag/markers/m4
+          Value: true
+        - Alpha: 1
+          Axes Length: 0.20000000298023224
+          Axes Radius: 0.20000000298023224
+          Class: rviz_default_plugins/Pose
+          Color: 255; 25; 0
+          Enabled: false
+          Head Length: 0.30000001192092896
+          Head Radius: 0.10000000149011612
+          Name: Marker5
+          Shaft Length: 1
+          Shaft Radius: 0.05000000074505806
+          Shape: Axes
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /stag/markers/m5
+          Value: false
+        - Alpha: 1
+          Axes Length: 1
+          Axes Radius: 0.10000000149011612
+          Class: rviz_default_plugins/PoseWithCovariance
+          Color: 255; 170; 0
+          Covariance:
+            Orientation:
+              Alpha: 0.5
+              Color: 255; 255; 127
+              Color Style: Unique
+              Frame: Local
+              Offset: 1
+              Scale: 1
+              Value: true
+            Position:
+              Alpha: 0.30000001192092896
+              Color: 204; 51; 204
+              Scale: 1
+              Value: true
+            Value: true
+          Enabled: true
+          Head Length: 0.10000000149011612
+          Head Radius: 0.10000000149011612
+          Name: InitialPose
+          Shaft Length: 0.25
+          Shaft Radius: 0.05000000074505806
+          Shape: Arrow
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            Filter size: 10
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /initialpose
+          Value: true
+      Enabled: true
+      Name: Stag Markers
   Enabled: true
   Global Options:
     Background Color: 159; 159; 159
@@ -458,7 +559,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -0.8800009489059448
+      Angle: -0.9250009059906006
       Class: rviz_default_plugins/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549

@@ -25,7 +25,10 @@ windows:
   - ros2 launch limo_navigation limo_localization.launch.py map:=$MAP_FILE use_rviz:=false
   - ros2 launch limo_navigation limo_controller.launch.py use_rviz:=false
 
-
 - name: duckling_general
   panes:
   - ros2 launch staggered_duckling_platooning general.launch.py
+
+- name: stag_localiser
+  panes:
+  - ros2 launch stag_ros2 locator.launch.py namespace:=/
