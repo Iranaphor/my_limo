@@ -31,7 +31,7 @@ windows:
 
 - name: map_loc
   panes:
-  - ros2 launch limo_navigation limo_localization.launch.py map:=$MAP_FILE use_rviz:=false
+  - ros2 launch limo_navigation limo_localization.launch.py map:=$COSTMAP_YAML_FILE use_rviz:=false
 
 - name: map_nav
   panes:
